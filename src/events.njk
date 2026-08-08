@@ -1,0 +1,24 @@
+---
+layout: base.njk
+title: Events
+permalink: /events/
+---
+<main class="page">
+  <h1 class="page-title">UPCOMING EVENTS</h1>
+  <p class="page-sub">WHAT'S NEXT</p>
+  {% if collections.events.length %}
+    {% for ev in collections.events %}
+    <section class="event">
+      <div class="event-head"><h2>{{ ev.data.title }}</h2><time>{{ ev.data.date | mmyyyy }}</time></div>
+      {% if ev.data.image %}<div class="gallery" style="grid-template-columns:repeat(2,1fr)"><a><img src="{{ ev.data.image }}" alt="{{ ev.data.title }}"></a></div>{% endif %}
+      <div class="about-copy" style="margin-top:18px">{{ ev.templateContent | safe }}</div>
+      {% if ev.data.link %}<p style="margin-top:16px"><a class="cta" style="font-family:var(--display);letter-spacing:.2em;font-size:11px;border:1.5px solid rgba(250,250,247,.85);border-radius:999px;padding:12px 24px;display:inline-block" href="{{ ev.data.link }}" target="_blank" rel="noopener">JOIN&nbsp;THIS&nbsp;EVENT</a></p>{% endif %}
+    </section>
+    {% endfor %}
+  {% else %}
+  <div class="empty">
+    <p>Nothing on the calendar right now. New adventures are in the making &mdash; sign up and be the first to know.</p>
+    <a class="cta" href="/">JOIN&nbsp;THE&nbsp;NEWSLETTER</a>
+  </div>
+  {% endif %}
+</main>

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% if title %}{{ title }} — {% endif %}GOODGOOD</title>
+<meta name="description" content="GOODGOOD — curator of creative culture. Offline experiences, trips, food, film and community.">
+<link rel="icon" href="/assets/logo-white.png">
+<link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+<nav>
+  <a class="wordmark" href="/">GOODGOOD</a>
+  <ul>
+    <li><a href="/" {% if page.url == "/" %}aria-current="page"{% endif %}>EVENTS</a></li>
+    <li><a href="/archive/" {% if page.url == "/archive/" %}aria-current="page"{% endif %}>ARCHIVE</a></li>
+    <li><a href="/about/" {% if page.url == "/about/" %}aria-current="page"{% endif %}>ABOUT&nbsp;US</a></li>
+    <li><a class="icon" href="{{ settings.instagram_url }}" target="_blank" rel="noopener" aria-label="Instagram">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="2.5" y="2.5" width="19" height="19" rx="5.2"/>
+        <circle cx="12" cy="12" r="4.6"/>
+        <circle cx="17.6" cy="6.4" r="0.9" fill="currentColor" stroke="none"/>
+      </svg>
+    </a></li>
+  </ul>
+</nav>
+
+{{ content | safe }}
+
+{% if not hideFooter %}
+<footer>
+  <span>&copy;GOODGOOD</span>
+  <a href="{{ settings.instagram_url }}" target="_blank" rel="noopener" aria-label="Instagram">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <rect x="2.5" y="2.5" width="19" height="19" rx="5.2"/>
+      <circle cx="12" cy="12" r="4.6"/>
+      <circle cx="17.6" cy="6.4" r="0.9" fill="currentColor" stroke="none"/>
+    </svg>
+  </a>
+</footer>
+{% endif %}
+
+<script>
+document.querySelectorAll('form[data-newsletter]').forEach(function (f) {
+  f.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var email = f.querySelector('input[type=email]').value.trim();
+    var base = {{ settings.substack_url | dump | safe }};
+    if (!base) { alert('Newsletter is not connected yet.'); return; }
+    base = base.replace(/\/+$/, '');
+    window.open(base + '/subscribe?email=' + encodeURIComponent(email), '_blank');
+  });
+});
+</script>
+</body>
+</html>

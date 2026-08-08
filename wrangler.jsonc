@@ -1,0 +1,7 @@
+{
+  "name": "goodgood-web",
+  "compatibility_date": "2026-01-01",
+  "assets": {
+    "directory": "./_site"
+  }
+}

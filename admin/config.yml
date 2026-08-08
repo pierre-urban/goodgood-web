@@ -1,0 +1,69 @@
+backend:
+  name: github
+  repo: pierre-urban/goodgood-web
+  branch: main
+  base_url: https://VASE-AUTH-ADRESA.workers.dev   # <-- doplní se při nasazení (krok 5 návodu)
+
+media_folder: media
+public_folder: /media
+
+site_url: https://goodgood.cz
+
+collections:
+  - name: archive
+    label: "Archiv akcí"
+    label_singular: "Akce v archivu"
+    folder: src/archive
+    create: true
+    slug: "{{slug}}"
+    sortable_fields: [date, title]
+    fields:
+      - { name: title, label: "Název akce", widget: string }
+      - { name: date, label: "Datum akce", widget: datetime, format: "YYYY-MM-DD", time_format: false, hint: "Stačí měsíc a rok — den nechte 1." }
+      - name: gallery
+        label: "Fotogalerie"
+        widget: image
+        multiple: true
+        media_folder: /media/archive
+        hint: "Nahrajte fotky z akce. Nejlépe vypadají počty dělitelné čtyřmi (8, 12…)."
+
+  - name: events
+    label: "Nadcházející akce"
+    label_singular: "Nadcházející akce"
+    folder: src/events
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { name: title, label: "Název akce", widget: string }
+      - { name: date, label: "Datum konání", widget: datetime, format: "YYYY-MM-DD", time_format: false }
+      - { name: image, label: "Fotka (nepovinné)", widget: image, required: false, media_folder: /media/events }
+      - { name: link, label: "Odkaz na přihlášení (nepovinné)", widget: string, required: false, hint: "Např. odkaz na formulář nebo prodej vstupenek." }
+      - { name: body, label: "Popis akce", widget: markdown }
+
+  - name: pages
+    label: "Stránky a nastavení"
+    files:
+      - name: about
+        label: "About Us"
+        file: src/_data/about.json
+        fields:
+          - { name: intro, label: "Úvodní text", widget: text }
+          - { name: outro, label: "Závěrečná věta", widget: string }
+          - name: photos
+            label: "Fotky vpravo"
+            widget: image
+            multiple: true
+            required: false
+            media_folder: /media/about
+          - name: pillars
+            label: "Pilíře"
+            widget: list
+            fields:
+              - { name: title, label: "Nadpis", widget: string }
+              - { name: text, label: "Text", widget: text }
+      - name: settings
+        label: "Nastavení webu"
+        file: src/_data/settings.json
+        fields:
+          - { name: substack_url, label: "Adresa Substack publikace", widget: string, required: false, hint: "Např. https://goodgood.substack.com — napojí formuláře na newsletter." }
+          - { name: instagram_url, label: "Instagram", widget: string }

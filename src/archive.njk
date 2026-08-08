@@ -1,0 +1,21 @@
+---
+layout: base.njk
+title: Archive
+permalink: /archive/
+---
+<main class="page">
+  <h1 class="page-title">ARCHIVE</h1>
+  <p class="page-sub">PAST EVENTS</p>
+  {% for ev in collections.archive %}
+  <section class="event">
+    <div class="event-head"><h2>{{ ev.data.title }}</h2><time>{{ ev.data.date | mmyyyy }}</time></div>
+    {% if ev.data.gallery.length %}
+    <div class="gallery">
+      {% for img in ev.data.gallery %}
+      <a href="{{ img }}" target="_blank" rel="noopener"><img loading="lazy" src="{{ img }}" alt="{{ ev.data.title }}"></a>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </section>
+  {% endfor %}
+</main>
