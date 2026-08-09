@@ -2,7 +2,7 @@ backend:
   name: github
   repo: pierre-urban/goodgood-web
   branch: main
-  base_url: https://VASE-AUTH-ADRESA.workers.dev   # <-- doplní se při nasazení (krok 5 návodu)
+  base_url: https://sveltia-cms-auth.pierre-319.workers.dev
 
 media_folder: media
 public_folder: /media
