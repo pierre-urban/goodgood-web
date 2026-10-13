@@ -75,6 +75,8 @@ header.hero::after{
   padding:11px 22px;transition:opacity .25s;
 }
 .join button:hover,.join button:focus-visible{opacity:.8}
+.join button:disabled{opacity:.6;cursor:default}
+.join .join-done{font-weight:500;padding:14px 0}
 .scroll-cue{
   position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:2;
   font-family:var(--display);font-size:10px;letter-spacing:.30em;color:rgba(250,250,247,.7);

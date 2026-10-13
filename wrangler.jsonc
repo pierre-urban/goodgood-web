@@ -1,7 +1,9 @@
 {
   "name": "goodgood-web",
   "compatibility_date": "2026-01-01",
+  "main": "./worker.js",
   "assets": {
-    "directory": "./_site"
+    "directory": "./_site",
+    "binding": "ASSETS"
   }
 }
