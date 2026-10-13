@@ -53,6 +53,13 @@ document.querySelectorAll('[data-nl]').forEach(function (nl) {
   fit();
   window.addEventListener('resize', fit);
 });
+// Once someone clicks into the Substack field, hide our placeholder over it.
+window.addEventListener('blur', function () {
+  setTimeout(function () {
+    var f = document.activeElement;
+    if (f && f.tagName === 'IFRAME' && f.closest('[data-nl]')) f.closest('[data-nl]').classList.add('nl-active');
+  });
+});
 </script>
 </body>
 </html>

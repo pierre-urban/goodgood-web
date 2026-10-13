@@ -6,6 +6,9 @@
     <div class="nl-crop">
       <iframe src="{{ settings.substack_url }}/embed" title="Newsletter GOODGOOD" scrolling="no" frameborder="0"></iframe>
     </div>
+    <!-- our placeholder and button drawn over theirs; clicks pass through to Substack -->
+    <span class="nl-ph" aria-hidden="true">Your email</span>
+    <span class="nl-btn" aria-hidden="true">SUBSCRIBE</span>
   </div>
 </div>
 {% endif %}
