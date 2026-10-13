@@ -42,72 +42,42 @@ nav a[aria-current="page"]::after{width:100%}
 nav svg{width:17px;height:17px}
 
 /* ---------- hero (index) ---------- */
-header.hero{position:relative;isolation:isolate;height:100svh;overflow:hidden;display:grid;place-items:center}
+header.hero{position:relative;height:100svh;overflow:hidden;display:grid;place-items:center}
 header.hero video,header.hero .poster{
   position:absolute;top:50%;left:50%;
   width:100vw;height:100svh;min-width:100%;min-height:100%;
   object-fit:cover;
-  transform:translate(-50%,-50%) scale(1.18);z-index:-1;
+  transform:translate(-50%,-50%) scale(1.18);
 }
 header.hero::after{
-  content:"";position:absolute;inset:0;z-index:-1;
+  content:"";position:absolute;inset:0;
   background:linear-gradient(180deg,rgba(14,14,12,.30) 0%,rgba(14,14,12,.12) 45%,rgba(14,14,12,.50) 100%);
 }
-.hero-inner{position:relative;width:min(800px,92vw);text-align:center;display:grid;gap:clamp(30px,5vh,52px)}
+.hero-inner{position:relative;z-index:2;width:min(800px,92vw);text-align:center;display:grid;gap:clamp(30px,5vh,52px)}
 .hero-logo{width:min(730px,90vw);margin-inline:auto}
 .join{display:grid;gap:20px;justify-items:center}
 .join p{font-family:var(--display);font-size:12px;letter-spacing:.34em}
-/* Newsletter: official Substack form (iframe), cropped to its field and button and
-   scaled to fill our capsule. --nl-x/--nl-y pick which part of their page shows;
-   check with goodgood.cz/?nl-ladeni. Invert + screen: their white field turns into
-   our see-through capsule, a black Substack button turns white with dark text. */
-.nl{
-  --nl-w:365px;--nl-h:36px;                 /* visible part of their form, at their size */
-  --nl-frame-w:600px;--nl-frame-h:700px;
-  --nl-x:-118px;--nl-y:-447px;              /* shift of their page so the form sits in the crop */
-  --nl-btn:106px;                           /* width of their button, at their size */
-  --nl-s:1;                                 /* scale to our capsule width, set by the script */
-  position:relative;width:min(460px,86vw);padding:4px;
-  border:1.5px solid rgba(250,250,247,.85);border-radius:999px;transition:border-color .3s;
+.join form{
+  display:flex;align-items:center;width:min(460px,86vw);
+  border:1.5px solid rgba(250,250,247,.85);border-radius:999px;
+  padding:4px 6px 4px 22px;background:rgba(14,14,12,.18);
+  backdrop-filter:blur(3px);transition:border-color .3s,background .3s;
 }
-.nl::before{
-  content:"";position:absolute;inset:0;border-radius:inherit;
-  background:rgba(14,14,12,.18);backdrop-filter:blur(3px);
+.join form[hidden]{display:none}
+.join form:focus-within{border-color:var(--paper);background:rgba(14,14,12,.34)}
+.join input{
+  flex:1;background:none;border:0;outline:0;color:var(--paper);
+  font-family:var(--text);font-size:15px;padding:10px 0;letter-spacing:.02em;min-width:0;
 }
-.nl:hover{border-color:var(--paper)}
-/* iPhone and iPad: Safari enlarges their text inside the frame, the field sits 15px lower */
-@supports (-webkit-touch-callout:none){.nl{--nl-y:-462px}}
-.nl-box{position:relative;height:calc(var(--nl-h) * var(--nl-s))}
-.nl-crop{
-  position:relative;width:var(--nl-w);height:var(--nl-h);overflow:hidden;border-radius:999px;
-  transform:scale(var(--nl-s));transform-origin:left top;mix-blend-mode:screen;
+.join input::placeholder{color:var(--paper);opacity:.9}
+.join button{
+  background:var(--paper);color:var(--ink);border:0;border-radius:999px;cursor:pointer;
+  font-family:var(--display);font-weight:400;font-size:11px;letter-spacing:.24em;
+  padding:11px 22px;transition:opacity .25s;
 }
-.nl-crop iframe{
-  position:absolute;left:0;top:0;border:0;background:#fff;
-  width:var(--nl-frame-w);height:var(--nl-frame-h);
-  transform:translate(var(--nl-x),var(--nl-y));
-  /* brightness+contrast: their grey placeholder drops out (ours is shown instead),
-     typed text and their button stay white */
-  filter:grayscale(1) invert(1) brightness(.7) contrast(20);
-}
-.nl-ph,.nl-btn{position:absolute;top:0;bottom:0;display:flex;align-items:center;pointer-events:none}
-.nl-ph{left:18px;font-family:var(--text);font-size:15px;letter-spacing:.02em;color:var(--paper);opacity:.9}
-.nl-active .nl-ph{display:none}
-/* covers their square-cornered button with our round one (wider by half its height,
-   so their left corners stay hidden) */
-.nl-btn{
-  right:0;justify-content:center;border-radius:999px;background:var(--paper);color:var(--ink);
-  width:calc((var(--nl-btn) + var(--nl-h) / 2 + 4px) * var(--nl-s));
-  font-family:var(--display);font-weight:400;font-size:11px;letter-spacing:.24em;padding-left:.24em;
-}
-.nl-debug .nl-ph,.nl-debug .nl-btn{display:none}
-.nl-thanks{display:none}
-.nl.nl-sent{border-color:transparent}
-.nl.nl-sent::before,.nl.nl-sent .nl-box{display:none}
-.nl.nl-sent .nl-thanks{display:block;font-weight:500;line-height:2;text-align:center}
-.connect .nl.nl-sent .nl-thanks{text-align:left}
-.nl-debug .nl-crop{overflow:visible;border-radius:0;outline:2px solid red;z-index:5;mix-blend-mode:normal}
-.nl-debug .nl-crop iframe{outline:1px dashed #00f;opacity:.85;filter:none}
+.join button:hover,.join button:focus-visible{opacity:.8}
+.join button:disabled{opacity:.6;cursor:default}
+.join .join-done{font-weight:500;padding:14px 0;line-height:2}
 .scroll-cue{
   position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:2;
   font-family:var(--display);font-size:10px;letter-spacing:.30em;color:rgba(250,250,247,.7);
@@ -195,5 +165,5 @@ footer svg{width:16px;height:16px;display:block}
 @media (max-width:640px){
   nav .wordmark{display:none}
   nav{justify-content:center}
-  .nl-ph{left:12px}
+  .join form{padding-left:16px}
 }
