@@ -62,9 +62,9 @@ header.hero::after{
    check with goodgood.cz/?nl-ladeni. Invert + screen: their white field turns into
    our see-through capsule, a black Substack button turns white with dark text. */
 .nl{
-  --nl-w:364px;--nl-h:35px;                 /* visible part of their form, at their size */
+  --nl-w:365px;--nl-h:36px;                 /* visible part of their form, at their size */
   --nl-frame-w:600px;--nl-frame-h:700px;
-  --nl-x:-117px;--nl-y:-424px;              /* shift of their page so the form sits in the crop */
+  --nl-x:-118px;--nl-y:-447px;              /* shift of their page so the form sits in the crop */
   --nl-s:1;                                 /* scale to our capsule width, set by the script */
   position:relative;width:min(460px,86vw);padding:4px;
   border:1.5px solid rgba(250,250,247,.85);border-radius:999px;transition:border-color .3s;
@@ -75,7 +75,7 @@ header.hero::after{
 }
 .nl:hover{border-color:var(--paper)}
 /* iPhone and iPad: Safari enlarges their text inside the frame, the field sits 15px lower */
-@supports (-webkit-touch-callout:none){.nl{--nl-y:-439px}}
+@supports (-webkit-touch-callout:none){.nl{--nl-y:-462px}}
 .nl-box{position:relative;height:calc(var(--nl-h) * var(--nl-s))}
 .nl-crop{
   position:relative;width:var(--nl-w);height:var(--nl-h);overflow:hidden;border-radius:999px;
