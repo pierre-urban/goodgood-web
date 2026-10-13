@@ -1,0 +1,11 @@
+{% if settings.substack_url %}
+<!-- official Substack form, cropped to just the field and button (.nl-crop);
+     goodgood.cz/?nl-ladeni shows the whole form and the crop for tuning -->
+<div class="nl" data-nl>
+  <div class="nl-box">
+    <div class="nl-crop">
+      <iframe src="{{ settings.substack_url }}/embed" title="Newsletter GOODGOOD" scrolling="no" frameborder="0"></iframe>
+    </div>
+  </div>
+</div>
+{% endif %}

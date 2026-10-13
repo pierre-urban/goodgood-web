@@ -41,29 +41,17 @@
 {% endif %}
 
 <script>
-document.querySelectorAll('form[data-newsletter]').forEach(function (f) {
-  f.addEventListener('submit', function (e) {
-    e.preventDefault();
-    var email = f.querySelector('input[type=email]').value.trim();
-    var button = f.querySelector('button');
-    var base = {{ settings.substack_url | dump | safe }};
-    if (!base) { alert('Newsletter is not connected yet.'); return; }
-    base = base.replace(/\/+$/, '');
-    // If the direct signup fails, send the visitor to Substack's own form instead.
-    var fallback = function () {
-      location.assign(base + '/subscribe?email=' + encodeURIComponent(email));
-    };
-    button.disabled = true;
-    button.textContent = 'SENDING…';
-    fetch('/api/subscribe', {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ email: email })
-    }).then(function (r) {
-      if (!r.ok) throw new Error(r.status);
-      f.outerHTML = '<p class="join-done" role="status">THANK&nbsp;YOU — YOU&rsquo;RE&nbsp;ON&nbsp;THE&nbsp;LIST</p>';
-    }).catch(fallback);
-  });
+// Newsletter: the Substack form is cropped at its own size (--nl-w) and scaled
+// to fill our capsule; ?nl-ladeni shows the whole form and the crop.
+document.querySelectorAll('[data-nl]').forEach(function (nl) {
+  if (location.search.indexOf('nl-ladeni') > -1) nl.classList.add('nl-debug');
+  var box = nl.querySelector('.nl-box');
+  var fit = function () {
+    var full = parseFloat(getComputedStyle(nl).getPropertyValue('--nl-w')) || 364;
+    nl.style.setProperty('--nl-s', String(box.clientWidth / full));
+  };
+  fit();
+  window.addEventListener('resize', fit);
 });
 </script>
 </body>

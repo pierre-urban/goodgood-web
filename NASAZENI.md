@@ -80,10 +80,14 @@ malá pomocná služba (běží zdarma na vašem Cloudflare účtu):
 1. V adminu → **Archiv akcí** → otevřete akci → **Fotogalerie** → nahrajte fotky → **Publish**.
 2. **Stránky a nastavení → About Us** → nahrajte dvě fotky vpravo → Publish.
 3. **Stránky a nastavení → Nastavení webu** → vyplňte **Adresa Substack publikace**
-   (např. `https://goodgood.substack.com`) → Publish. Tím se formuláře napojí
-   na newsletter: člověk zadá email a ten se rovnou zapíše do adresáře na Substacku
-   (zařídí to soubor `worker.js`). Kdyby přímý zápis selhal, otevře se mu
-   přihlašovací stránka Substacku s předvyplněným emailem.
+   (např. `https://goodgoodcz.substack.com`) → Publish. Na hlavní stránce a v About Us
+   se pak zobrazí oficiální formulář Substacku, oříznutý jen na pole a tlačítko
+   (stejně jako na Calmake). Adresy se zapisují rovnou do adresáře na Substacku.
+   - Ve Substacku nastavte barvu publikace na **černou** (Settings → Branding / theme),
+     na webu se pak tlačítko zobrazí bílé s tmavým písmem.
+   - Kdyby kolonka po změně na Substacku seděla nakřivo: otevřete
+     `goodgood.cz/?nl-ladeni` (ukáže celý formulář a červený rámeček výřezu) a pošlete
+     screenshot. Posun se ladí hodnotami `--nl-x` a `--nl-y` v `assets/style.css`.
 4. Každá změna se na webu projeví do 1–2 minut (Cloudflare web automaticky přestaví).
 
 ## KROK 6 — Substack: import stávajících odběratelů
