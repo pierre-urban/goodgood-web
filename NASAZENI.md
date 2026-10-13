@@ -81,7 +81,9 @@ malá pomocná služba (běží zdarma na vašem Cloudflare účtu):
 2. **Stránky a nastavení → About Us** → nahrajte dvě fotky vpravo → Publish.
 3. **Stránky a nastavení → Nastavení webu** → vyplňte **Adresa Substack publikace**
    (např. `https://goodgood.substack.com`) → Publish. Tím se formuláře napojí
-   na newsletter: člověk zadá email, potvrdí na Substacku a je v adresáři.
+   na newsletter: člověk zadá email a ten se rovnou zapíše do adresáře na Substacku
+   (zařídí to soubor `worker.js`). Kdyby přímý zápis selhal, otevře se mu
+   přihlašovací stránka Substacku s předvyplněným emailem.
 4. Každá změna se na webu projeví do 1–2 minut (Cloudflare web automaticky přestaví).
 
 ## KROK 6 — Substack: import stávajících odběratelů
