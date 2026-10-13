@@ -4,7 +4,10 @@
 <div class="nl" data-nl>
   <div class="nl-box">
     <div class="nl-crop">
-      <iframe src="{{ settings.substack_url }}/embed" title="Newsletter GOODGOOD" scrolling="no" frameborder="0"></iframe>
+      <!-- sandbox without allow-popups: after signing up, Substack tries to open its
+           "Pledge your support" page in a new tab; this blocks it -->
+      <iframe src="{{ settings.substack_url }}/embed" title="Newsletter GOODGOOD" scrolling="no" frameborder="0"
+        sandbox="allow-scripts allow-forms allow-same-origin"></iframe>
     </div>
     <!-- our placeholder and button drawn over theirs; clicks pass through to Substack -->
     <span class="nl-ph" aria-hidden="true">Your email</span>
