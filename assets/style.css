@@ -101,6 +101,11 @@ header.hero::after{
   font-family:var(--display);font-weight:400;font-size:11px;letter-spacing:.24em;padding-left:.24em;
 }
 .nl-debug .nl-ph,.nl-debug .nl-btn{display:none}
+.nl-thanks{display:none}
+.nl.nl-sent{border-color:transparent}
+.nl.nl-sent::before,.nl.nl-sent .nl-box{display:none}
+.nl.nl-sent .nl-thanks{display:block;font-weight:500;line-height:2;text-align:center}
+.connect .nl.nl-sent .nl-thanks{text-align:left}
 .nl-debug .nl-crop{overflow:visible;border-radius:0;outline:2px solid red;z-index:5;mix-blend-mode:normal}
 .nl-debug .nl-crop iframe{outline:1px dashed #00f;opacity:.85;filter:none}
 .scroll-cue{

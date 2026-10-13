@@ -60,6 +60,44 @@ window.addEventListener('blur', function () {
     if (f && f.tagName === 'IFRAME' && f.closest('[data-nl]')) f.closest('[data-nl]').classList.add('nl-active');
   });
 });
+// After sending, Substack swaps its form for a confirmation we can't see into.
+// Sign of that: their frame loads a new page; once the visitor has used the
+// form, that shows our thank-you instead. ?nl-ladeni lists what the frame does.
+(function () {
+  var debug = location.search.indexOf('nl-ladeni') > -1;
+  var log = function (text) {
+    if (!debug) return;
+    var box = document.getElementById('nl-log');
+    if (!box) {
+      box = document.createElement('pre');
+      box.id = 'nl-log';
+      box.style.cssText = 'position:fixed;left:8px;bottom:8px;z-index:99;max-width:96vw;max-height:40vh;overflow:auto;background:#fff;color:#000;font:12px/1.4 monospace;padding:8px;white-space:pre-wrap';
+      document.body.appendChild(box);
+    }
+    box.textContent += new Date().toLocaleTimeString() + '  ' + text + '\n';
+  };
+  var thank = function (nl, why) {
+    log('thank-you (' + why + ')');
+    if (!debug && nl.classList.contains('nl-active')) nl.classList.add('nl-sent');
+  };
+  document.querySelectorAll('[data-nl]').forEach(function (nl) {
+    var frame = nl.querySelector('iframe');
+    var loads = 0;
+    frame.addEventListener('load', function () {
+      loads++;
+      log('frame load #' + loads);
+      if (loads > 1) thank(nl, 'reload');
+    });
+    window.addEventListener('message', function (e) {
+      if (e.source !== frame.contentWindow) return;
+      var data = e.data;
+      try { data = typeof data === 'string' ? data : JSON.stringify(data); } catch (err) {}
+      // only logged for now: until we know what Substack sends, a message
+      // while typing must not hide the field
+      log('message: ' + String(data).slice(0, 300));
+    });
+  });
+})();
 </script>
 </body>
 </html>
