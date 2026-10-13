@@ -1,18 +1,14 @@
 {% if settings.substack_url %}
-<!-- official Substack form, cropped to just the field and button (.nl-crop);
-     goodgood.cz/?nl-ladeni shows the whole form and the crop for tuning -->
-<div class="nl" data-nl>
-  <div class="nl-box">
-    <div class="nl-crop">
-      <!-- sandbox without allow-popups: after signing up, Substack tries to open its
-           "Pledge your support" page in a new tab; this blocks it -->
-      <iframe src="{{ settings.substack_url }}/embed" title="Newsletter GOODGOOD" scrolling="no" frameborder="0"
-        sandbox="allow-scripts allow-forms allow-same-origin"></iframe>
-    </div>
-    <!-- our placeholder and button drawn over theirs; clicks pass through to Substack -->
-    <span class="nl-ph" aria-hidden="true">Your email</span>
-    <span class="nl-btn" aria-hidden="true">SUBSCRIBE</span>
-  </div>
-  <p class="nl-thanks" role="status">DĚKUJEME — JSTE NA SEZNAMU<br>THANK&nbsp;YOU — YOU&rsquo;RE&nbsp;ON&nbsp;THE&nbsp;LIST</p>
-</div>
+{#- The email goes to Substack the same way their own signup form sends it,
+    from the visitor's browser into a hidden frame, so Substack's pages
+    (and the new tab it would open) never show. -#}
+<form data-newsletter action="{{ settings.substack_url }}/api/v1/free?nojs=true" method="post" target="nl-sink">
+  <input type="email" name="email" required placeholder="Your email" aria-label="Your email" autocomplete="email">
+  <input type="hidden" name="first_url">
+  <input type="hidden" name="current_url">
+  <input type="hidden" name="source" value="embed">
+  <button type="submit">SUBSCRIBE</button>
+</form>
+<p class="join-done" role="status" hidden>DĚKUJEME — JSTE NA SEZNAMU<br>THANK&nbsp;YOU — YOU&rsquo;RE&nbsp;ON&nbsp;THE&nbsp;LIST</p>
+<iframe name="nl-sink" title="" hidden sandbox></iframe>
 {% endif %}
