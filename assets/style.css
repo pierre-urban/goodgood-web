@@ -62,9 +62,10 @@ header.hero::after{
    check with goodgood.cz/?nl-ladeni. Invert + screen: their white field turns into
    our see-through capsule, a black Substack button turns white with dark text. */
 .nl{
-  --nl-w:364px;--nl-h:35px;                 /* visible part of their form, at their size */
+  --nl-w:365px;--nl-h:36px;                 /* visible part of their form, at their size */
   --nl-frame-w:600px;--nl-frame-h:700px;
-  --nl-x:-117px;--nl-y:-424px;              /* shift of their page so the form sits in the crop */
+  --nl-x:-118px;--nl-y:-447px;              /* shift of their page so the form sits in the crop */
+  --nl-btn:106px;                           /* width of their button, at their size */
   --nl-s:1;                                 /* scale to our capsule width, set by the script */
   position:relative;width:min(460px,86vw);padding:4px;
   border:1.5px solid rgba(250,250,247,.85);border-radius:999px;transition:border-color .3s;
@@ -75,7 +76,7 @@ header.hero::after{
 }
 .nl:hover{border-color:var(--paper)}
 /* iPhone and iPad: Safari enlarges their text inside the frame, the field sits 15px lower */
-@supports (-webkit-touch-callout:none){.nl{--nl-y:-439px}}
+@supports (-webkit-touch-callout:none){.nl{--nl-y:-462px}}
 .nl-box{position:relative;height:calc(var(--nl-h) * var(--nl-s))}
 .nl-crop{
   position:relative;width:var(--nl-w);height:var(--nl-h);overflow:hidden;border-radius:999px;
@@ -85,8 +86,21 @@ header.hero::after{
   position:absolute;left:0;top:0;border:0;background:#fff;
   width:var(--nl-frame-w);height:var(--nl-frame-h);
   transform:translate(var(--nl-x),var(--nl-y));
-  filter:grayscale(1) invert(1) brightness(1.5);   /* lightens their grey placeholder */
+  /* brightness+contrast: their grey placeholder drops out (ours is shown instead),
+     typed text and their button stay white */
+  filter:grayscale(1) invert(1) brightness(.7) contrast(20);
 }
+.nl-ph,.nl-btn{position:absolute;top:0;bottom:0;display:flex;align-items:center;pointer-events:none}
+.nl-ph{left:18px;font-family:var(--text);font-size:15px;letter-spacing:.02em;color:var(--paper);opacity:.9}
+.nl-active .nl-ph{display:none}
+/* covers their square-cornered button with our round one (wider by half its height,
+   so their left corners stay hidden) */
+.nl-btn{
+  right:0;justify-content:center;border-radius:999px;background:var(--paper);color:var(--ink);
+  width:calc((var(--nl-btn) + var(--nl-h) / 2 + 4px) * var(--nl-s));
+  font-family:var(--display);font-weight:400;font-size:11px;letter-spacing:.24em;padding-left:.24em;
+}
+.nl-debug .nl-ph,.nl-debug .nl-btn{display:none}
 .nl-debug .nl-crop{overflow:visible;border-radius:0;outline:2px solid red;z-index:5;mix-blend-mode:normal}
 .nl-debug .nl-crop iframe{outline:1px dashed #00f;opacity:.85;filter:none}
 .scroll-cue{
@@ -176,4 +190,5 @@ footer svg{width:16px;height:16px;display:block}
 @media (max-width:640px){
   nav .wordmark{display:none}
   nav{justify-content:center}
+  .nl-ph{left:12px}
 }
